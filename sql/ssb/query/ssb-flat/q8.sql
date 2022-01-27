@@ -1,0 +1,15 @@
+--Q3.2
+SELECT
+    C_CITY,
+    S_CITY,
+    (LO_ORDERDATE DIV 10000) AS year,
+    sum(LO_REVENUE) AS revenue
+FROM lineorder_flat
+WHERE C_NATION = 'UNITED STATES' AND S_NATION = 'UNITED STATES' AND LO_ORDERDATE  >= 19920101 AND LO_ORDERDATE <= 19971231
+GROUP BY
+    C_CITY,
+    S_CITY,
+    year
+ORDER BY
+    year ASC,
+    revenue DESC;

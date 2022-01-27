@@ -1,0 +1,13 @@
+--Q4.1
+SELECT
+   (LO_ORDERDATE DIV 10000) AS year,
+    C_NATION,
+    sum(LO_REVENUE - LO_SUPPLYCOST) AS profit
+FROM lineorder_flat
+WHERE C_REGION = 'AMERICA' AND S_REGION = 'AMERICA' AND P_MFGR in ( 'MFGR#1' , 'MFGR#2')
+GROUP BY
+    year,
+    C_NATION
+ORDER BY
+    year ASC,
+    C_NATION ASC;

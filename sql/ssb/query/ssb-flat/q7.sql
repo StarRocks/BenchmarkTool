@@ -1,0 +1,15 @@
+--Q3.1
+SELECT
+    C_NATION,
+    S_NATION,
+    (LO_ORDERDATE DIV 10000) AS year,
+    sum(LO_REVENUE) AS revenue
+FROM lineorder_flat
+WHERE C_REGION = 'ASIA' AND S_REGION = 'ASIA' AND LO_ORDERDATE  >= 19920101 AND LO_ORDERDATE   <= 19971231
+GROUP BY
+    C_NATION,
+    S_NATION,
+    year
+ORDER BY
+    year ASC,
+    revenue DESC;
