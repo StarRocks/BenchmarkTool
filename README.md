@@ -6,10 +6,13 @@ Benchmark tool to test StarRocks using several benchmarks.
 
 ### Requirements
 
-* python3
-* python libraries: pymysql
-
-   using commands: `pip3 install pymysql`
+* **python3**
+* python libraries: **pymysql**
+    > Use command `pip3 install pymysql` to install.
+    >
+    > Use command `yum install python-pip` to install pip3 if the machine does not have **pip3**.
+* **mysqlslap**: This benchmark tool uses mysqlslap to test the StarRocks's performance
+    > Use command `yum install mysql` to install mysqlslap.
 
 ### Project directories
 
@@ -84,6 +87,10 @@ All the scripts under `bin` directory:
 
     You can use absolute or relative directory path to store generated data.
     Such as: `./bin/gen_data/gen-tpch.sh 1 data/data_1G-2`
+
+    > This *gen-tpch.sh* script just wraps the tpch-dbgen tool for convenience.
+    >
+    > You can download the **tpch-dbgen** tool from [tpc.org](http://www.tpc.org/tpch/spec/tpch_2_17_0.zip) directly by yourself, or see more information from other web pages, like [Data generation tool](https://docs.deistercloud.com/content/Databases.30/TPCH%20Benchmark.90/Data%20generation%20tool.30.xml), etc.
 
 4. Load data using stream load
 
