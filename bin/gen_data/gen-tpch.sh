@@ -101,3 +101,5 @@ cd "${_GEN_FILE_DIR_}" || exit
 echo "[INFO] refine the data in ${data_dir}" >&2
 "${_GEN_FILE_DIR_}"/clean-tpch.sh "${data_dir}"
 
+du -sh "${_GEN_FILE_DIR_}"/*.tbl*
+echo "[INFO] Data generation completed."
