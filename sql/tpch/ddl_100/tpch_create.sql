@@ -49,7 +49,7 @@ PROPERTIES (
 drop table if exists nation;
 CREATE TABLE `nation` (
   `n_nationkey` int(11) NOT NULL,
-  `n_name`      char(25) NOT NULL,
+  `n_name`      varchar(25) NOT NULL,
   `n_regionkey` int(11) NOT NULL,
   `n_comment`   varchar(152) NULL
 ) ENGINE=OLAP
@@ -123,7 +123,7 @@ PROPERTIES (
 
 drop table if exists region;
 CREATE TABLE region  ( r_regionkey      int NOT NULL,
-                            r_name       CHAR(25) NOT NULL,
+                            r_name       VARCHAR(25) NOT NULL,
                             r_comment    VARCHAR(152))
 ENGINE=OLAP
 DUPLICATE KEY(`r_regionkey`)
