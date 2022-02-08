@@ -6,9 +6,9 @@ CREATE TABLE customer ( c_custkey     int NOT NULL,
                         c_name        VARCHAR(25) NOT NULL,
                         c_address     VARCHAR(40) NOT NULL,
                         c_nationkey   int NOT NULL,
-                        c_phone       CHAR(15) NOT NULL,
+                        c_phone       VARCHAR(15) NOT NULL,
                         c_acctbal     decimal(15, 2)   NOT NULL,
-                        c_mktsegment  CHAR(10) NOT NULL,
+                        c_mktsegment  VARCHAR(10) NOT NULL,
                         c_comment     VARCHAR(117) NOT NULL)
 ENGINE=OLAP
 DUPLICATE KEY(`c_custkey`)
@@ -30,12 +30,12 @@ CREATE TABLE lineitem ( l_orderkey    bigint NOT NULL,
                              l_extendedprice  decimal(15, 2) NOT NULL,
                              l_discount    decimal(15, 2) NOT NULL,
                              l_tax         decimal(15, 2) NOT NULL,
-                             l_returnflag  CHAR(1) NOT NULL,
-                             l_linestatus  CHAR(1) NOT NULL,
+                             l_returnflag  VARCHAR(1) NOT NULL,
+                             l_linestatus  VARCHAR(1) NOT NULL,
                              l_commitdate  DATE NOT NULL,
                              l_receiptdate DATE NOT NULL,
-                             l_shipinstruct CHAR(25) NOT NULL,
-                             l_shipmode     CHAR(10) NOT NULL,
+                             l_shipinstruct VARCHAR(25) NOT NULL,
+                             l_shipmode     VARCHAR(10) NOT NULL,
                              l_comment      VARCHAR(44) NOT NULL)
 ENGINE=OLAP
 DUPLICATE KEY(`l_orderkey`, `l_linenumber`, `l_shipdate`)
@@ -55,7 +55,7 @@ PROPERTIES (
 drop table if exists nation;
 CREATE TABLE `nation` (
   `n_nationkey` int(11) NOT NULL,
-  `n_name`      char(25) NOT NULL,
+  `n_name`      varchar(25) NOT NULL,
   `n_regionkey` int(11) NOT NULL,
   `n_comment`   varchar(152) NULL
 ) ENGINE=OLAP
@@ -72,10 +72,10 @@ drop table if exists orders;
 CREATE TABLE orders  ( o_orderkey       bigint NOT NULL,
                        o_orderdate      DATE NOT NULL,
                        o_custkey        int NOT NULL,
-                       o_orderstatus    CHAR(1) NOT NULL,
+                       o_orderstatus    VARCHAR(1) NOT NULL,
                        o_totalprice     decimal(15, 2) NOT NULL,
-                       o_orderpriority  CHAR(15) NOT NULL,
-                       o_clerk          CHAR(15) NOT NULL,
+                       o_orderpriority  VARCHAR(15) NOT NULL,
+                       o_clerk          VARCHAR(15) NOT NULL,
                        o_shippriority   int NOT NULL,
                        o_comment        VARCHAR(79) NOT NULL)
 ENGINE=OLAP
@@ -96,11 +96,11 @@ PROPERTIES (
 drop table if exists part;
 CREATE TABLE part  ( p_partkey          int NOT NULL,
                           p_name        VARCHAR(55) NOT NULL,
-                          p_mfgr        CHAR(25) NOT NULL,
-                          p_brand       CHAR(10) NOT NULL,
+                          p_mfgr        VARCHAR(25) NOT NULL,
+                          p_brand       VARCHAR(10) NOT NULL,
                           p_type        VARCHAR(25) NOT NULL,
                           p_size        int NOT NULL,
-                          p_container   CHAR(10) NOT NULL,
+                          p_container   VARCHAR(10) NOT NULL,
                           p_retailprice decimal(15, 2) NOT NULL,
                           p_comment     VARCHAR(23) NOT NULL)
 ENGINE=OLAP
@@ -131,7 +131,7 @@ PROPERTIES (
 
 drop table if exists region;
 CREATE TABLE region  ( r_regionkey      int NOT NULL,
-                            r_name       CHAR(25) NOT NULL,
+                            r_name       VARCHAR(25) NOT NULL,
                             r_comment    VARCHAR(152))
 ENGINE=OLAP
 DUPLICATE KEY(`r_regionkey`)
@@ -145,10 +145,10 @@ PROPERTIES (
 
 drop table if exists supplier;
 CREATE TABLE supplier (  s_suppkey       int NOT NULL,
-                             s_name        CHAR(25) NOT NULL,
+                             s_name        VARCHAR(25) NOT NULL,
                              s_address     VARCHAR(40) NOT NULL,
                              s_nationkey   int NOT NULL,
-                             s_phone       CHAR(15) NOT NULL,
+                             s_phone       VARCHAR(15) NOT NULL,
                              s_acctbal     decimal(15, 2) NOT NULL,
                              s_comment     VARCHAR(101) NOT NULL)
 ENGINE=OLAP

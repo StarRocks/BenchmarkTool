@@ -64,6 +64,7 @@ class MysqlLib(object):
             self.connector = _mysql.connect(
                 host=query_dict["host"],
                 user=query_dict["user"],
+                port=int(query_dict["port"]),
                 passwd=query_dict["password"],
                 db=query_dict["database"]
             )
