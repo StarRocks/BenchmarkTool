@@ -90,9 +90,9 @@ All the scripts under `bin` directory:
 
     > This *gen-tpch.sh* script just wraps the tpch-dbgen tool for convenience.
     >
-    > You can run command `make` under `thirdparty/tpch-dbgen` directory to gen `dbgen` binary.
+    > You can run command `make` under `thirdparty/tpch-dbgen` directory to gen `dbgen` binary, where the dbgen source version is 3.0.0 downloaded from [tpc.org](http://tpc.org/tpc_documents_current_versions/current_specifications5.asp) .
     >
-    > You can also download the **tpch-dbgen** tool from [tpc.org](http://www.tpc.org/tpch/spec/tpch_2_17_0.zip) directly by yourself, or see more information from other web pages, like [Data generation tool](https://docs.deistercloud.com/content/Databases.30/TPCH%20Benchmark.90/Data%20generation%20tool.30.xml), etc.
+    > You can also download the latest version of **tpch-dbgen** tool from [tpc.org](http://www.tpc.org) directly by yourself, or see more information from other web pages, like [Data generation tool](https://docs.deistercloud.com/content/Databases.30/TPCH%20Benchmark.90/Data%20generation%20tool.30.xml), etc.
 
 4. Load data using stream load
 
