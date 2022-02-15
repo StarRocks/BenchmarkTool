@@ -12,6 +12,7 @@ from lib import starrocks_lib
 from utility import logger
 
 MYSQLSLAP_RESULT_STR = "Average number of seconds to run all queries"
+MYSQLSLAP_ERROR = "Error"
 
 
 class StarrocksBenchmark(object):
@@ -92,7 +93,7 @@ class StarrocksBenchmark(object):
             db_name = conf_parser.starrocks_db
             self.use_database(db_name)
 
-            # check sql dir args
+            # check sql dirs, there may be serveral directories for `all`
             test_sql_dirs = self.get_test_sql_dirs(sql_dir_name)
             logging.info("test sql in dirs:[%s]", ", ".join(test_sql_dirs))
 
@@ -103,12 +104,22 @@ class StarrocksBenchmark(object):
             for sql_dir in test_sql_dirs:
                 sql_list = self.lib.get_query_table_sqls(sql_dir)
                 # logging.debug("get sql files under sql_dir:%s", sql_list)
+                # sort sql file for determinated test
                 self.sort_sql_list(sql_list)
                 for concurrency_num in conf_parser.concurrency_num_list:
                     print("------ dataset: %s, concurrency: %s ------" % (sql_dir, concurrency_num))
                     print("sql\\time(ms)\\parallel_num\t%s" % ("\t".join(conf_parser.parallel_num_list)))
+                    sql_file_exec_count = 0
                     for sql_dict in sql_list:
-                        result = [sql_dict["file_name"]]
+                        sql_file_name = sql_dict["file_name"]  # file name without extension `.sql`
+                        if sql_file and sql_file != sql_file_name:
+                            logging.debug("Not specified sql file, skip it. file='%s'", sql_file_name)
+                            continue
+                        else:
+                            logging.debug("Run sql file. file='%s'", sql_file_name)
+
+                        sql_file_exec_count += 1
+                        result = [sql_file_name]
                         for parallel_num in conf_parser.parallel_num_list:
                             query_dict = {"parallel_num": parallel_num,
                                           "concurrency": concurrency_num,
@@ -117,12 +128,14 @@ class StarrocksBenchmark(object):
                                           "sql": sql_dict["sql"]}
 
                             cmd = self.lib.get_parallel_cmd(query_dict)
+                            logging.debug("Run sql file. cmd={%s}", cmd)
                             begin_time = time.time()
                             res, output = subprocess.getstatusoutput(cmd)
                             end_time = time.time()
-                            if res != 0 or (output and MYSQLSLAP_RESULT_STR not in output):
-                                print("exec sql error. sql: %s, output: \n%s" % (
-                                    sql_dict["file_name"], output))
+                            # logging.debug("res=%s, output={%s}", res, output)
+                            if res != 0 or (output and (MYSQLSLAP_RESULT_STR not in output
+                                                        or MYSQLSLAP_ERROR in output)):
+                                logging.error("exec sql error. sql: %s, output: \n%s", sql_file_name, output)
                                 result.append("-")
                             else:
                                 time_cost = (int(round(end_time * 1000)) - int(round(begin_time * 1000))) \
@@ -133,6 +146,7 @@ class StarrocksBenchmark(object):
                             # print(begin_time, end_time, time_cost, output)
 
                         print("\t".join(result))
+                    logging.info("run %s sql files at concurrency:%s", sql_file_exec_count, concurrency_num)
         finally:
             self.close_starrocks()
 

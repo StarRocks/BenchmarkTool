@@ -23,9 +23,9 @@ sleep_ms = config.get("starrocks", "sleep_ms")
 
 # optional
 parallel_num_string = config.get("starrocks", "parallel_num", fallback="1")
-parallel_num_list = parallel_num_string.split(",")
+parallel_num_list = [pn.strip() for pn in parallel_num_string.split(",")]
 concurrency_num_string = config.get("starrocks", "concurrency_num", fallback="1")
-concurrency_num_list = concurrency_num_string.split(",")
+concurrency_num_list = [cn.strip() for cn in concurrency_num_string.split(",")]
 num_of_queries = config.getint("starrocks", "num_of_queries", fallback=1)
 
 # broker config
